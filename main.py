@@ -1,62 +1,44 @@
-class Animal:
-    """Класс животных с атрибутами alive = True(живой) и fed = False(накормленный),
-    name - индивидуальное название каждого животного. """
+class Vehicle:
+    """любой транспорт"""
 
-    alive = True # живой
-    fed = False  #накормленный
+    new_color = str
+    __COLOR_VARIANTS = ['red', 'blue', 'green', 'black', 'white', 'greyt']
 
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, onwer=str, __model=str, color=str, __engine_power=int):
+        self.onwer = onwer  # владелец
+        self.__model = __model  # модель(марка) транспорта
+        self.__engine_power = __engine_power  # мощность двигателя
+        self.color = color  # название цвета
 
+    def get_model(self):
+        print(f'Модель, {self.__model}, транспорта')
 
-class Plant:
-    """Класс растений атрибут edible = False(съедобность),
-     name - индивидуальное название каждого растения. """
-    edible = False
+    def get_horsepoewr(self):
+        print(f'Мощность двигателя {self.__engine_power}')
 
-    def __init__(self, name):
-        self.name = name
+    def get_color(self):
+        print(f'Цвет транспорта {self.color}')
 
+    def print_info(self):
+        print(
+            f'Модель, {self.__model}\nМощность двигателя, {self.__engine_power} \nЦвет транспорта , {self.color} '
+            f'\nВладелец , {self.onwer}')
 
-class Mammal(Animal):
-    def eat(self, food):
-        if food.edible == True:
-            self.fed = True
-            return f'{self.name}, съел {food.name}'
+    def set_color(self, new_color=str):
+        if any(item in new_color.lower() for item in Vehicle.__COLOR_VARIANTS):
+            self.color = new_color
         else:
-            self.alive = False
-            return f'{self.name} не стал есть {food.name}'
+            print(f'Нельзя изменить цвет на {new_color}')
 
 
-class Predator(Animal):
-    def eat(self, food):
-        if food.edible:
-            print(f'{self.name} съел {food.name}')
-            self.fed = True
-        else:
-            print(f'{self.name} не стал есть {food.name}')
-            self.alive = False
+class Sedan(Vehicle):
+    """седны"""
+    __PASSENGERS_LIMIT = 5
 
 
-class Flower(Plant):
-    pass
-
-
-class Fruit(Plant):
-    edible = True
-
-
-a1 = Predator('Волк с Уолл-Стрит')
-a2 = Mammal('Хатико')
-p1 = Flower('Цветик семицветик')
-p2 = Fruit('Заводной апельсин')
-
-print(a1.name)
-print(p1.name)
-
-print(a1.alive)
-print(a2.fed)
-a1.eat(p1)
-a2.eat(p2)
-print(a1.alive)
-print(a2.fed)
+vehicle1 = Sedan('Fedos', 'Toyota Mark ||', 'blue', 500)
+vehicle1.print_info()
+vehicle1.set_color('pink')
+vehicle1.set_color('BLACK')
+vehicle1.onwer = 'Vasya'
+vehicle1.print_info()
